@@ -1,35 +1,32 @@
-(function () {
-    var svgizzle = function (selector) {
-        
+(function() {
+    var svgizzle = function(selector) {
+
         var images = document.querySelectorAll(selector),
             len = images.length;
-        
+
         while (len--) {
             var img = images[len],
                 imgID = img.id,
-                imgClasses = img.className,
+                imgClasses = img.getAttribute('class'),
                 imgURL = img.getAttribute('src'),
                 imgParent = img.parentNode,
                 svg,
                 xhr;
 
-            xhr = new XMLHTTPRequest();
+            xhr = new XMLHttpRequest();
 
             xhr.open('GET', imgURL, true);
 
-            xhr.onload = function () {
+            xhr.onload = function() {
                 var xml = xhr.responseXML,
-                    tmp = document.createElement('div');
-                tmp.innerHTML = xml;
-                
-                svg = tmp.querySelector('svg');
+                    svg = xml.documentElement;
 
                 if (imgID) {
                     svg.id = imgID;
                 }
 
-                if (imgClass) {
-                    svg.className = imgClasses + ' replaced-svg'; 
+                if (imgClasses) {
+                    svg.setAttribute('class', imgClasses + ' replaced-svg');
                 }
 
                 svg.removeAttribute('xmlns:a');
