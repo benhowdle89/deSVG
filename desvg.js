@@ -1,5 +1,5 @@
 (function() {
-    var svgizzle = function(selector) {
+    var desvg = function(selector, removeinlinecss) {
 
         var images = document.querySelectorAll(selector),
             len = images.length;
@@ -10,7 +10,9 @@
                 imgClasses = img.getAttribute('class'),
                 imgURL = img.getAttribute('src'),
                 imgParent = img.parentNode,
+                removeinlinecss = removeinlinecss || null,
                 svg,
+                paths,
                 xhr;
 
             xhr = new XMLHttpRequest();
@@ -18,8 +20,15 @@
             xhr.open('GET', imgURL, true);
 
             xhr.onload = function() {
-                var xml = xhr.responseXML,
-                    svg = xml.documentElement;
+                var xml = xhr.responseXML;
+
+                if (!xml) {
+                    return;
+                }
+
+                svg = xml.documentElement;
+
+                paths = svg.querySelectorAll('path');
 
                 if (imgID) {
                     svg.id = imgID;
@@ -27,6 +36,12 @@
 
                 if (imgClasses) {
                     svg.setAttribute('class', imgClasses + ' replaced-svg');
+                }
+
+                if (removeinlinecss) {
+                    for (var i = 0; i < paths.length; i++) {
+                        paths[i].removeAttribute('style');
+                    }
                 }
 
                 svg.removeAttribute('xmlns:a');
@@ -38,5 +53,5 @@
             xhr.send();
         }
     };
-    window.SVGizzle = svgizzle;
+    window.deSVG = desvg;
 })();

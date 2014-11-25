@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="//use.typekit.net/rhe6lbl.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="wrap">
+	<h1><span>de</span>SVG</h1>
+	<ul class="sell">
+		<li><i class="fa fa-check"></i> Remove inline SVG bloat from your HTML document.</li>
+		<li><i class="fa fa-check"></i> Style SVGs with CSS.</li>
+		<li><i class="fa fa-check"></i> SVGs still accessible without JavaScript.</li>
+	</ul>
+	<div class="ctas">
+		<a href="" class="button">Download</a>
+		<a href="" class="button">Docs</a>
+		<a href="" class="button">Demo</a>
+	</div>
+	<div class="usage">
+		<h3>What does it do?</h3>
+		<p>deSVG takes the &lt;img /&gt; tags you supply, grabs the raw SVG set in the "src" attribute and replaces that &lt;img /&gt; with the &lt;svg /&gt; it downloads.</p>
+		<h3>Include the JavaScript file on your page</h3>
+		<pre><code>&lt;script src=&quot;path/to/desvg.js&quot;&gt;&lt;/script&gt;</code></pre>
+		<h3>Kick off deSVG</h3>
+		<pre><code>window.addEventListener('load', function(){
+ 	// 1. selector for the &lt;img /&gt; tags to replace
+ 	// 2. whether to strip inline style tags from SVG paths
+	deSVG('.replace-svg', true);
+});</code></pre>
+	</div>
+</div>
+
+</body>
+</html>
