@@ -12,6 +12,7 @@ body {
 	font-size: 16px;
 	-webkit-font-smoothing: antialiased;
 	color: #fff;
+	background: #D43E28;
 	background: -webkit-linear-gradient(#D43E28, #D81E27);
 	border: 10px solid #fff;
 	text-align: center;
