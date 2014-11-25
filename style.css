@@ -16,7 +16,6 @@ body {
 	border: 10px solid #fff;
 	text-align: center;
 	text-shadow: 0 1px 0 #701014;
-	padding-bottom: 64px;
 }
 
 p {
@@ -45,6 +44,7 @@ h1 {
 	margin: 64px 0;
 	color: #fff;
 	text-shadow: 0 6px 0 #701014;
+	transform: rotate(350deg);
 }
 
 h1 span {
@@ -74,34 +74,32 @@ h3 {
 pre {
 	font-family: Consolas, Monaco, 'Andale Mono', monospace;
 	background: #fff;
-	padding: 24px;
+	padding: 12px;
 	font-size: 12px;
 	margin-bottom: 12px;
-	border: 1px solid #701014;
 	color: #701014;
 	text-shadow: none;
 }
 
 .ctas {
 	margin-top: 36px;
+	padding: 12px 0;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
 }
 
 .ctas a {
-	background: #fff;
-	color: #701014;
-	text-shadow: none;
+	color: #fff;
 	text-decoration: none;
 	padding: 12px 24px;
 	margin: 0 12px;
-	border: 1px solid #701014;
 	text-transform: uppercase;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 700;
-	transition: .2s;
 }
 
 .ctas a:hover {
-	background: rgba(255, 255, 255, 0.9);
+	text-decoration: underline;
 }
 
 .usage {
@@ -111,4 +109,8 @@ pre {
 
 .usage > p {
 	margin-bottom: 12px;
+}
+
+footer {
+	padding: 64px 0 24px 0;
 }
