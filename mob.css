@@ -1,0 +1,11 @@
+body {
+	border: 5px solid #fff;
+}
+
+.wrap {
+	padding: 0 24px;
+}
+
+.ctas a {
+	margin: 0 6px;
+}

@@ -80,6 +80,7 @@ pre {
 	margin-bottom: 12px;
 	color: #701014;
 	text-shadow: none;
+	overflow: scroll;
 }
 
 .ctas {
