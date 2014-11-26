@@ -13,6 +13,10 @@ deSVG takes the `<img />` tags you supply. It then grabs, using AJAX, the raw SV
     	deSVG('.replace-svg', true);
     });
 
+### Demo
+
+Check out this [JSFiddle](http://jsfiddle.net/benhowdle89/ujxomdgc/14/).
+
 ### Source
 
 Check out the [commented source](https://github.com/benhowdle89/deSVG/blob/gh-pages/desvg.js) which should explain it's functionality in greater detail.
