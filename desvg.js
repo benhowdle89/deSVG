@@ -2,6 +2,8 @@
     "use strict";
     var desvg = function(selector, removeinlinecss) {
 
+        removeinlinecss = removeinlinecss || null;
+
         // grab all the elements from the document matching the passed in selector
         var images = document.querySelectorAll(selector),
             len = images.length;
@@ -13,7 +15,6 @@
                 imgClasses = img.getAttribute('class'),
                 imgURL = img.getAttribute('src'),
                 imgParent = img.parentNode,
-                removeinlinecss = removeinlinecss || null,
                 svg,
                 paths,
                 xhr;
