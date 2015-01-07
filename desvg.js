@@ -1,4 +1,5 @@
 (function() {
+    "use strict";
     var desvg = function(selector, removeinlinecss) {
 
         // grab all the elements from the document matching the passed in selector
