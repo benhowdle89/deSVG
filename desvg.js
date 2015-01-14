@@ -1,22 +1,18 @@
 (function() {
+    "use strict";
+
     var desvg = function(selector, removeinlinecss) {
+        removeinlinecss = removeinlinecss || null;
 
-        // grab all the elements from the document matching the passed in selector
-        var images = document.querySelectorAll(selector),
-            len = images.length;
-
-        // loops over the matched images
-        while (len--) {
-            var img = images[len],
-                imgID = img.id,
+        // helper function for replacing images with svg
+        var replaceImageWithSVG = function (img) {
+            var imgID = img.id,
                 imgClasses = img.getAttribute('class'),
                 imgURL = img.getAttribute('src'),
                 imgParent = img.parentNode,
-                removeinlinecss = removeinlinecss || null,
                 svg,
                 paths,
                 xhr;
-
             // set up the AJAX request
             xhr = new XMLHttpRequest();
 
@@ -64,7 +60,18 @@
             };
 
             xhr.send();
+        };
+
+
+        // grab all the elements from the document matching the passed in selector
+        var images = document.querySelectorAll(selector),
+            len = images.length;
+
+        // loops over the matched images
+        while (len--) {
+            replaceImageWithSVG(images[len]);
         }
     };
+
     window.deSVG = desvg;
 })();
