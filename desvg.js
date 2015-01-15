@@ -4,14 +4,12 @@
         removeinlinecss = removeinlinecss || null;
 
         var images, len,
-            replaceImageWithSVG = function (img) {
-                var imgID = img.id,
-                    imgClasses = img.getAttribute('class'),
-                    imgURL = img.getAttribute('src'),
-                    imgParent = img.parentNode,
+            loadSvg = function (img) {
+                var xhr,
                     svg,
                     paths,
-                    xhr;
+                    imgURL = img.getAttribute('src');
+
                 // set up the AJAX request
                 xhr = new XMLHttpRequest();
 
@@ -32,33 +30,39 @@
                     // get all the SVG paths
                     paths = svg.querySelectorAll('path');
 
-                    if (imgID) {
-                        // re-assign the ID attribute from the <img />
-                        svg.id = imgID;
-                    }
-
-                    if (imgClasses) {
-                        // re-assign the class attribute from the <img />
-                        svg.setAttribute('class', imgClasses + ' replaced-svg');
-                    }
-
                     if (removeinlinecss) {
                         // if `removeinlinecss` is true then remove the style attributes from the SVG paths
                         for (var i = 0; i < paths.length; i++) {
                             paths[i].removeAttribute('style');
                         }
                     }
-
                     svg.removeAttribute('xmlns:a');
 
-                    // add the new SVG element to the DOM
-                    imgParent.appendChild(svg);
-
-                    // and remove the original <img />
-                    imgParent.removeChild(img);
+                    replaceImgWithSvg(img, svg);
                 };
 
                 xhr.send();
+            },
+            replaceImgWithSvg = function (img, svg) {
+                var imgID = img.id,
+                    imgClasses = img.getAttribute('class'),
+                    imgParent = img.parentNode;
+
+                if (imgID) {
+                    // re-assign the ID attribute from the <img />
+                    svg.id = imgID;
+                }
+
+                if (imgClasses) {
+                    // re-assign the class attribute from the <img />
+                    svg.setAttribute('class', imgClasses + ' replaced-svg');
+                }
+
+                // add the new SVG element to the DOM
+                imgParent.appendChild(svg);
+
+                // and remove the original <img />
+                imgParent.removeChild(img);
             };
 
 
@@ -68,7 +72,7 @@
 
         // loops over the matched images
         while (len--) {
-            replaceImageWithSVG(images[len]);
+            loadSvg(images[len]);
         }
     };
     window.deSVG = desvg;
