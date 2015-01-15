@@ -2,7 +2,7 @@
     "use strict";
 
     var desvg = function(selector, removeInlineCss) {
-        removeInlineCss = removeInlineCss || null;
+        removeInlineCss = removeInlineCss || false;
 
         var images,
             imagesLength,
