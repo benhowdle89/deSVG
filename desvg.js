@@ -1,8 +1,8 @@
 (function() {
     "use strict";
 
-    var desvg = function(selector, removeinlinecss) {
-        removeinlinecss = removeinlinecss || null;
+    var desvg = function(selector, removeInlineCss) {
+        removeInlineCss = removeInlineCss || null;
 
         var images,
             imagesLength,
@@ -35,8 +35,8 @@
                     // get all the SVG paths
                     paths = svg.querySelectorAll('path');
 
-                    if (removeinlinecss) {
-                        // if `removeinlinecss` is true then remove the style attributes from the SVG paths
+                    if (removeInlineCss) {
+                        // if `removeInlineCss` is true then remove the style attributes from the SVG paths
                         for (var i = 0; i < paths.length; i++) {
                             paths[i].removeAttribute('style');
                         }
