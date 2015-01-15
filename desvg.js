@@ -1,37 +1,60 @@
 (function() {
     "use strict";
 
-    var desvg = function(selector, removeinlinecss) {
-        removeinlinecss = removeinlinecss || null;
+    var desvg = function(selector, removeInlineCss) {
+        removeInlineCss = removeInlineCss || false;
 
-        // helper function for replacing images with svg
-        var replaceImageWithSVG = function (img) {
-            var imgID = img.id,
-                imgClasses = img.getAttribute('class'),
-                imgURL = img.getAttribute('src'),
-                imgParent = img.parentNode,
-                svg,
-                paths,
-                xhr;
-            // set up the AJAX request
-            xhr = new XMLHttpRequest();
+        var images,
+            imagesLength,
+            sortImages = {},
 
-            xhr.open('GET', imgURL, true);
+            // load svg file
+            loadSvg = function (imgURL, replaceImages) {
+                // set up the AJAX request
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', imgURL, true);
 
-            xhr.onload = function() {
-                // get the response in XML format
-                var xml = xhr.responseXML;
+                xhr.onload = function() {
+                    var xml,
+                        svg,
+                        paths,
+                        replaceImagesLength;
 
-                // bail if no XML
-                if (!xml) {
-                    return;
-                }
+                    // get the response in XML format
+                    xml = xhr.responseXML;
+                    replaceImagesLength = replaceImages.length;
 
-                // this will be the <svg />
-                svg = xml.documentElement;
+                    // bail if no XML
+                    if (!xml) {
+                        return;
+                    }
 
-                // get all the SVG paths
-                paths = svg.querySelectorAll('path');
+                    // this will be the <svg />
+                    svg = xml.documentElement;
+
+                    // get all the SVG paths
+                    paths = svg.querySelectorAll('path');
+
+                    if (removeInlineCss) {
+                        // if `removeInlineCss` is true then remove the style attributes from the SVG paths
+                        for (var i = 0; i < paths.length; i++) {
+                            paths[i].removeAttribute('style');
+                        }
+                    }
+                    svg.removeAttribute('xmlns:a');
+
+                    while(replaceImagesLength--) {
+                        replaceImgWithSvg(replaceImages[replaceImagesLength], svg.cloneNode(true));
+                    }
+                };
+
+                xhr.send();
+            },
+
+            // replace the original <img /> with the new <svg />
+            replaceImgWithSvg = function (img, svg) {
+                var imgID = img.id,
+                    imgClasses = img.getAttribute('class');
 
                 if (imgID) {
                     // re-assign the ID attribute from the <img />
@@ -43,34 +66,35 @@
                     svg.setAttribute('class', imgClasses + ' replaced-svg');
                 }
 
-                if (removeinlinecss) {
-                    // if `removeinlinecss` is true then remove the style attributes from the SVG paths
-                    for (var i = 0; i < paths.length; i++) {
-                        paths[i].removeAttribute('style');
-                    }
-                }
-
-                svg.removeAttribute('xmlns:a');
-
-                // add the new SVG element to the DOM
-                imgParent.appendChild(svg);
-
-                // and remove the original <img />
-                imgParent.removeChild(img);
+                img.parentNode.replaceChild(svg, img);
             };
 
-            xhr.send();
-        };
 
 
         // grab all the elements from the document matching the passed in selector
-        var images = document.querySelectorAll(selector),
-            len = images.length;
+        images = document.querySelectorAll(selector);
+        imagesLength = images.length;
 
-        // loops over the matched images
-        while (len--) {
-            replaceImageWithSVG(images[len]);
+        // sort images array by image url
+        while (imagesLength--) {
+            var _img = images[imagesLength],
+                _imgURL = _img.getAttribute('src');
+
+
+            if(sortImages[_imgURL]) {
+                sortImages[_imgURL].push(_img);
+            } else {
+                sortImages[_imgURL] = [_img];
+            }
         }
+
+        // loops over the matched urls
+        for (var key in sortImages) {
+            if (sortImages.hasOwnProperty(key)) {
+                loadSvg(key, sortImages[key]);
+            }
+        }
+
     };
 
     window.deSVG = desvg;
