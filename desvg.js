@@ -4,21 +4,25 @@
     var desvg = function(selector, removeinlinecss) {
         removeinlinecss = removeinlinecss || null;
 
-        var images, len,
+        var images,
+            imagesLength,
+            sortImages = {},
 
-            loadSvg = function (img) {
-                var xhr,
-                    svg,
-                    paths,
-                    imgURL = img.getAttribute('src');
-
+            // load svg file
+            loadSvg = function (imgURL, replaceImages) {
                 // set up the AJAX request
-                xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
                 xhr.open('GET', imgURL, true);
 
                 xhr.onload = function() {
+                    var xml,
+                        svg,
+                        paths,
+                        replaceImagesLength;
+
                     // get the response in XML format
-                    var xml = xhr.responseXML;
+                    xml = xhr.responseXML;
+                    replaceImagesLength = replaceImages.length;
 
                     // bail if no XML
                     if (!xml) {
@@ -39,12 +43,15 @@
                     }
                     svg.removeAttribute('xmlns:a');
 
-                    replaceImgWithSvg(img, svg);
+                    while(replaceImagesLength--) {
+                        replaceImgWithSvg(replaceImages[replaceImagesLength], svg.cloneNode(true));
+                    }
                 };
 
                 xhr.send();
             },
 
+            // replace <img /> with the loaded <svg />
             replaceImgWithSvg = function (img, svg) {
                 var imgID = img.id,
                     imgClasses = img.getAttribute('class'),
@@ -71,11 +78,26 @@
 
         // grab all the elements from the document matching the passed in selector
         images = document.querySelectorAll(selector);
-        len = images.length;
+        imagesLength = images.length;
 
-        // loops over the matched images
-        while (len--) {
-            loadSvg(images[len]);
+        // sort images array by image url
+        while (imagesLength--) {
+            var _img = images[imagesLength],
+                _imgURL = _img.getAttribute('src');
+
+
+            if(sortImages[_imgURL]) {
+                sortImages[_imgURL].push(_img);
+            } else {
+                sortImages[_imgURL] = [_img];
+            }
+        }
+
+        // loops over the matched urls
+        for (var key in sortImages) {
+            if (sortImages.hasOwnProperty(key)) {
+                loadSvg(key, sortImages[key]);
+            }
         }
 
     };
