@@ -51,11 +51,10 @@
                 xhr.send();
             },
 
-            // replace <img /> with the loaded <svg />
+            // replace the original <img /> with the new <svg />
             replaceImgWithSvg = function (img, svg) {
                 var imgID = img.id,
-                    imgClasses = img.getAttribute('class'),
-                    imgParent = img.parentNode;
+                    imgClasses = img.getAttribute('class');
 
                 if (imgID) {
                     // re-assign the ID attribute from the <img />
@@ -67,11 +66,7 @@
                     svg.setAttribute('class', imgClasses + ' replaced-svg');
                 }
 
-                // add the new SVG element to the DOM
-                imgParent.appendChild(svg);
-
-                // and remove the original <img />
-                imgParent.removeChild(img);
+                img.parentNode.replaceChild(svg, img);
             };
 
 
