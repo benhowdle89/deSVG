@@ -5,6 +5,10 @@ deSVG
 
 deSVG takes the `<img />` tags you supply. It then grabs, using AJAX, the raw SVG you've set in the `src` attribute and replaces that `<img />` with the `<svg />` it downloads.
 
+### Install
+
+Grab the files from this repo, or install from [npm](https://www.npmjs.com/package/desvg)
+
 ### Usage
 
     window.addEventListener('load', function(){
