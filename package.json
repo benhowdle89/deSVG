@@ -1,0 +1,20 @@
+{
+  "name": "desvg",
+  "version": "1.0.1",
+  "description": "deSVG",
+  "main": "desvg.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benhowdle89/deSVG.git"
+  },
+  "keywords": [],
+  "author": "Ben Howdle <hello@benhowdle.im> (http://benhowdle.im/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benhowdle89/deSVG/issues"
+  },
+  "homepage": "https://github.com/benhowdle89/deSVG#readme"
+}
