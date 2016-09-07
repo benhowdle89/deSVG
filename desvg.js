@@ -78,10 +78,15 @@
         // sort images array by image url
         while (imagesLength--) {
             var _img = images[imagesLength],
-                _imgURL = _img.getAttribute('src');
+              _imgURL;
 
+            if (_img.getAttribute('data-src')) {
+              _imgURL = _img.getAttribute('data-src')
+            } else {
+              _imgURL = _img.getAttribute('src')
+            }
 
-            if(sortImages[_imgURL]) {
+            if (sortImages[_imgURL]) {
                 sortImages[_imgURL].push(_img);
             } else {
                 sortImages[_imgURL] = [_img];
@@ -99,3 +104,4 @@
 
     window.deSVG = desvg;
 })();
+
