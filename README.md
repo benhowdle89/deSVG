@@ -17,6 +17,8 @@ Grab the files from this repo, or install from [npm](https://www.npmjs.com/packa
     	deSVG('.replace-svg', true);
     });
 
+If you do not wish for two network requests to be made per image, instead of using the `src` attribute, you can pass in the images path via `data-src="path/to/file"`. Note that this may cause layouts to jump and no image to be displayed whilst it is being fetched.
+
 ### Demo
 
 Check out this [JSFiddle](http://jsfiddle.net/benhowdle89/ujxomdgc/14/).
